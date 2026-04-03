@@ -1,81 +1,82 @@
 # TodoMe
 
-> "Chrome is running slow. I need to download some more ram."
-> ....
-> "Yo. The deadline for release is in 17 minutes."
-> ....
-> "Have you said 'I use Arch btw' today?"
-> ....
+Create, list, complete, delete, and clear your to-dos straight from the terminal, baby. 
 
-Slouchingly typing away in your favourite Subreddit you get the:
-* Inevitable ping from the PM
-* A 'lovely' text from the wife (no gender assumption. Wife is the CEO, PM, CFO and Floor Manager of the relationship)
-* A fleeting ADHD neuron spark that seems slightly more stimulating than the current debate you have with Flower-Basket-95 on /r/Fedora/ about whether or not a Fedora is a way of living, or a clothing accessory that represents a way of living.
+TodoMe is a minimal, fast, and reliable CLI tool to help you track your daily tasks without ever leaving your command line.
 
-You scramble to free a little bit of memory in your otherwise fully utilized brain of yours, only to realise that 17 hours has passed and all hope is gone.
-
-That is until you discover **TodoMe** - the ultra reliable, minimal, maximal terminal tool to help you remember and action on your *"Yes i'll do that today"* (Or give you a system to track all the promises you give but fail to fulfill during your day).
+🔗 **[View on GitHub](https://github.com/fieldghost/TodoMe)**
 
 ---
 
-## Requirements
+## ⚠️ Prerequisites
 
-`notify-send` (I gots to remind you)
+If you want to use the `remind` feature, your system needs `notify-send` to push desktop notifications.
 
-* **Ubuntu**
+* **Ubuntu:**
     ```bash
     sudo apt-get install notify-osd
     ```
-* **Debian**
+* **Debian:**
     ```bash
     sudo apt-get install libnotify-bin
     ```
-* **Something else?**
-    Please find it and install it via your package manager, or visit [vaskovsky.net](https://vaskovsky.net/notify-send/linux.html).
+* **Other Distributions:**
+    Install it via your standard package manager, or visit [vaskovsky.net](https://vaskovsky.net/notify-send/linux.html) for guidance.
 
 ---
 
-## Instructions
+## 🛠️ Installation
 
-1. Copy/Download/Steal the script.
-2. Store in a path/that/you/can/find/again.
-3. For the chads - add an alias in your `~/.bashrc`:
+1. Download or clone the script to your machine.
+2. Make it executable:
    ```bash
-   alias todo="~/path/to/the/script/name_of_the_script.sh"
+   chmod +x TodoMe.sh
    ```
-4. Enjoy your todo.
+3. Move it to a safe location (e.g., `~/scripts/TodoMe.sh`).
+4. Add an alias to your `~/.bashrc` (or `~/.zshrc`) for quick access:
+   ```bash
+   alias todo="~/scripts/TodoMe.sh"
+   ```
+5. Source your config:
+   ```bash
+   source ~/.bashrc
+   ```
+
+*(Note: TodoMe automatically creates a `~/.todo_list_data` file in your home directory to store your tasks).*
 
 ---
 
-## How To Use
+## 💻 Usage
 
 **Syntax:**
 ```bash
-todo [ add | list | done | remove | clear | remind ] [ ARGUMENT ] [ MINUTES ]
+todo [ command ] [ argument ] [ minutes ]
 ```
 
 ### Commands
 
-* **`todo add "Pet the dog"`**
-    Adds new todo.
+* **`todo add "<task>"`**
+    Adds a new task to your list.
+    *Example:* `todo add "Pet the dog"`
 
 * **`todo list`**
-    Lists all current todos.
-    *Format: `<number> <completion_indicator> <todo_name>`*
+    Displays all current tasks with their line numbers and completion status.
 
-* **`todo done <todo_number>`**
-    Marks a specific todo as done `[x]`.
+* **`todo done <number>`**
+    Marks a specific task as completed `[x]`.
+    *Example:* `todo done 1`
 
-* **`todo remove <todo_number>`**
-    Deletes a specific todo. 
-    *(Will ask for confirmation. Yeah, I am that nice.)*
+* **`todo remove <number>`**
+    Deletes a specific task. Prompts for confirmation before deleting.
+    *Example:* `todo remove 2`
 
 * **`todo clear`**
-    Deletes all your todos.
-    *(I also added a confirmation prompt here. You are welcome.)*
+    Wipes your entire to-do list. Prompts for confirmation.
 
-* **`todo remind <todo_number> <reminder_minutes>`**
-    Adds a cronjob to execute a `notify-send` in `<reminder_minutes>`.
+* **`todo remind <number> <minutes>`**
+    Sets up a cron job to send you a desktop notification for a specific task every *X* minutes. 
+    *Example:* `todo remind 1 15` (Reminds you of task #1 every 15 minutes).
+    *(Warning: This adds a recurring job to your crontab. You will need to manually remove it using `crontab -e` when you no longer need the reminder).*
 
 ---
 
